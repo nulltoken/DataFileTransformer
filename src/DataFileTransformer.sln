@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataFileTransformer", "DataFileTransformer\DataFileTransformer.csproj", "{F5E68358-11C3-4FF6-B08D-19FE4DECD36C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataFileTransformer.Tests", "DataFileTransformer.Tests\DataFileTransformer.Tests.csproj", "{06C9AAA6-554B-4C3F-BF7A-BC4F22F31FB6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C6D4A4ED-3B8D-4E08-8E6A-CC05D32FD16A}"
+	ProjectSection(SolutionItems) = preProject
+		SharedAssemblyInfo.cs = SharedAssemblyInfo.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{A07F367D-2830-43BB-B945-7AA1238D1779}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F5E68358-11C3-4FF6-B08D-19FE4DECD36C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5E68358-11C3-4FF6-B08D-19FE4DECD36C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5E68358-11C3-4FF6-B08D-19FE4DECD36C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5E68358-11C3-4FF6-B08D-19FE4DECD36C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06C9AAA6-554B-4C3F-BF7A-BC4F22F31FB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06C9AAA6-554B-4C3F-BF7A-BC4F22F31FB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06C9AAA6-554B-4C3F-BF7A-BC4F22F31FB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06C9AAA6-554B-4C3F-BF7A-BC4F22F31FB6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
