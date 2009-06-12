@@ -2,7 +2,7 @@ using System;
 
 namespace DataFileTransformer.Transformation
 {
-    class TrimTransformer : IUnaryTransformer
+    public class TrimTransformer : IUnaryTransformer
     {
         #region Implementation of IUnaryTransformer
 

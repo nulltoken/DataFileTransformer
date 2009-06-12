@@ -2,7 +2,7 @@
 
 namespace DataFileTransformer.Expectation
 {
-    public class MandatoryExpectation : IExpectationEvaluator
+    public class MandatoryExpectationEvaluator : IExpectationEvaluator
     {
         #region Implementation of IExpectationEvaluator
 
@@ -13,7 +13,7 @@ namespace DataFileTransformer.Expectation
                 throw new ArgumentNullException("input");
             }
 
-            if (input == string.Empty)
+            if (input.Length == 0)
             {
                 return false;
             }

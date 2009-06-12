@@ -3,13 +3,13 @@ using System.Text.RegularExpressions;
 
 namespace DataFileTransformer.Expectation
 {
-    public class PatternExpectation : IExpectationEvaluator
+    public class PatternExpectationEvaluator : IExpectationEvaluator
     {
         private readonly Regex _pattern;
 
         #region Implementation of IExpectationEvaluator
 
-        public PatternExpectation(string pattern)
+        public PatternExpectationEvaluator(string pattern)
         {
             if (pattern == null)
             {

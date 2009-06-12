@@ -2,7 +2,7 @@ using System;
 
 namespace DataFileTransformer.Transformation
 {
-    class JoinTransformer : IBinaryTransformer
+    public class JoinTransformer : IBinaryTransformer
     {
         #region Implementation of IBinaryTransformer
 
