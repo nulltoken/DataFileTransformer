@@ -2,7 +2,7 @@
 using DataFileTransformer.Expectation;
 using MbUnit.Framework;
 
-namespace DataFileTransformer.Tests
+namespace DataFileTransformer.Tests.Expectation
 {
     [TestFixture]
     public class DateTimeExpectationEvaluatorFixture

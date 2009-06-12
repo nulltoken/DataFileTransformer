@@ -2,7 +2,7 @@
 using DataFileTransformer.Expectation;
 using MbUnit.Framework;
 
-namespace DataFileTransformer.Tests
+namespace DataFileTransformer.Tests.Expectation
 {
     [TestFixture]
     public class MandatoryExpectationEvaluatorFixture
@@ -19,7 +19,7 @@ namespace DataFileTransformer.Tests
         }
 
         [Test]
-        public void IsFullThrowsWhenNullValueIsPassed()
+        public void IsFullFilledThrowsWhenNullValueIsPassed()
         {
             MandatoryExpectationEvaluator mandatoryExpectationEvaluator = CreateSUT();
             Assert.Throws<ArgumentNullException>(() => mandatoryExpectationEvaluator.IsFulfilled(null));
