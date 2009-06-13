@@ -6,8 +6,8 @@ namespace DataFileTransformer.Expectation
 {
     public class RestrictedValuesExpectationEvaluator : IExpectationEvaluator
     {
-        private readonly List<string> _restrictedValues;
         private readonly IEqualityComparer<string> _comparer;
+        private readonly IEnumerable<string> _restrictedValues;
 
         #region Implementation of IExpectationEvaluator
 
@@ -18,9 +18,9 @@ namespace DataFileTransformer.Expectation
                 throw new ArgumentNullException("restrictedValues");
             }
 
-            _comparer = isCaseSensitive ? StringComparer.Ordinal : StringComparer.OrdinalIgnoreCase;
+            _comparer = BuildStringComparerFrom(isCaseSensitive);
 
-            _restrictedValues = new List<string>(restrictedValues);
+            _restrictedValues = restrictedValues;
         }
 
         public bool IsFulfilled(string input)
@@ -31,6 +31,11 @@ namespace DataFileTransformer.Expectation
             }
 
             return _restrictedValues.Contains(input, _comparer);
+        }
+
+        private static StringComparer BuildStringComparerFrom(bool isCaseSensitive)
+        {
+            return isCaseSensitive ? StringComparer.Ordinal : StringComparer.OrdinalIgnoreCase;
         }
 
         #endregion

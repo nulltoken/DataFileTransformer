@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 
 #if DEBUG
+
 [assembly: AssemblyConfiguration("Debug")]
 [assembly: AssemblyDescription("Flavor=Debug")] // a.k.a. "Comments"
 #else
@@ -16,7 +17,6 @@ using System.Runtime.InteropServices;
 #endif
 
 [assembly: CLSCompliant(true)]
-
 [assembly: ComVisible(false)]
 [assembly: AssemblyVersion("0.1.0.0")]
 [assembly: AssemblyInformationalVersion("0.1.0.0")]

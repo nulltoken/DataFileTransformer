@@ -12,7 +12,8 @@ namespace DataFileTransformer.Tests.Expectation
         [Row("1/2/2009", "d/M/yyyy", true)]
         [Row("01/02/2009", "d/M/yyyy", true)]
         [Row("31/12/09", "dd/MM/yy", true)]
-        public void IsFullFilledCorrectlyDealsWithNonNullsValues(string input, string dateTimeFormat, bool expectedResult)
+        public void IsFullFilledCorrectlyDealsWithNonNullsValues(string input, string dateTimeFormat,
+                                                                 bool expectedResult)
         {
             DateTimeExpectationEvaluator dateTimeExpectationEvaluator = CreateSUT(dateTimeFormat);
             Assert.AreEqual(expectedResult, dateTimeExpectationEvaluator.IsFulfilled(input));
@@ -28,8 +29,7 @@ namespace DataFileTransformer.Tests.Expectation
         [Test]
         public void ConstructorThrowsWhenNullValueIsPassed()
         {
-            
-            Assert.Throws<ArgumentNullException>(() =>  CreateSUT(null));
+            Assert.Throws<ArgumentNullException>(() => CreateSUT(null));
         }
 
         private static DateTimeExpectationEvaluator CreateSUT(string dateFormat)

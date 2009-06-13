@@ -12,10 +12,12 @@ namespace DataFileTransformer.Transformation
             {
                 throw new ArgumentNullException("input");
             }
+
             if (otherInput == null)
             {
                 throw new ArgumentNullException("otherInput");
             }
+
             return string.Concat(input, otherInput);
         }
 
