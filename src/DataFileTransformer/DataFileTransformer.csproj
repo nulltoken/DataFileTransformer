@@ -39,6 +39,7 @@
     <Compile Include="Expectation\DateTimeExpectationEvaluator.cs" />
     <Compile Include="Expectation\IExpectationEvaluator.cs" />
     <Compile Include="Expectation\PatternExpectationEvaluator.cs" />
+    <Compile Include="Expectation\RestrictedValuesExpectationEvaluator.cs" />
     <Compile Include="Transformation\IUnaryTransformer.cs" />
     <Compile Include="Transformation\JoinTransformer.cs" />
     <Compile Include="Expectation\MandatoryExpectationEvaluator.cs" />
@@ -48,6 +49,9 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
