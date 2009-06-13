@@ -8,21 +8,21 @@ namespace DataFileTransformer.Tests.Expectation
     public class MandatoryExpectationEvaluatorFixture
     {
         [Test]
-        [Row("", false)]
-        [Row(" ", true)]
-        [Row("duMMy", true)]
-        [Row("3.5", true)]
-        public void IsFullFilledCorrectlyDealsWithNonNullsValues(string input, bool expectedResult)
+        [Row("", Status.Failed)]
+        [Row(" ", Status.Passed)]
+        [Row("duMMy", Status.Passed)]
+        [Row("3.5", Status.Passed)]
+        public void IsFullFilledCorrectlyDealsWithNonNullsValues(string input, Status expectedResult)
         {
             MandatoryExpectationEvaluator mandatoryExpectationEvaluator = CreateSUT();
-            Assert.AreEqual(expectedResult, mandatoryExpectationEvaluator.IsFulfilled(input));
+            Assert.AreEqual(expectedResult, mandatoryExpectationEvaluator.Evaluate(input).Status);
         }
 
         [Test]
         public void IsFullFilledThrowsWhenNullValueIsPassed()
         {
             MandatoryExpectationEvaluator mandatoryExpectationEvaluator = CreateSUT();
-            Assert.Throws<ArgumentNullException>(() => mandatoryExpectationEvaluator.IsFulfilled(null));
+            Assert.Throws<ArgumentNullException>(() => mandatoryExpectationEvaluator.Evaluate(null));
         }
 
         private static MandatoryExpectationEvaluator CreateSUT()

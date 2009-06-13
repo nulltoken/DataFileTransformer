@@ -23,14 +23,19 @@ namespace DataFileTransformer.Expectation
             _restrictedValues = restrictedValues;
         }
 
-        public bool IsFulfilled(string input)
+        public EvaluationResult Evaluate(string input)
         {
             if (input == null)
             {
                 throw new ArgumentNullException("input");
             }
 
-            return _restrictedValues.Contains(input, _comparer);
+            if (!_restrictedValues.Contains(input, _comparer))
+            {
+                return new EvaluationResult(Status.Failed);
+            }
+
+            return new EvaluationResult(Status.Passed);
         }
 
         private static StringComparer BuildStringComparerFrom(bool isCaseSensitive)

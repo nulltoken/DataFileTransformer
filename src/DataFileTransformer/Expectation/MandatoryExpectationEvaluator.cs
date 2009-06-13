@@ -6,7 +6,7 @@ namespace DataFileTransformer.Expectation
     {
         #region Implementation of IExpectationEvaluator
 
-        public bool IsFulfilled(string input)
+        public EvaluationResult Evaluate(string input)
         {
             if (input == null)
             {
@@ -15,10 +15,13 @@ namespace DataFileTransformer.Expectation
 
             if (input.Length == 0)
             {
-                return false;
+                return new EvaluationResult(Status.Failed);
+                ;
             }
 
-            return true;
+            return new EvaluationResult(Status.Passed);
+            ;
+            ;
         }
 
         #endregion

@@ -2,6 +2,6 @@ namespace DataFileTransformer.Expectation
 {
     public interface IExpectationEvaluator
     {
-        bool IsFulfilled(string input);
+        EvaluationResult Evaluate(string input);
     }
 }

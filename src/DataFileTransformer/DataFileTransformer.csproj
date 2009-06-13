@@ -37,9 +37,11 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Expectation\DateTimeExpectationEvaluator.cs" />
+    <Compile Include="Expectation\EvaluationResult.cs" />
     <Compile Include="Expectation\IExpectationEvaluator.cs" />
     <Compile Include="Expectation\PatternExpectationEvaluator.cs" />
     <Compile Include="Expectation\RestrictedValuesExpectationEvaluator.cs" />
+    <Compile Include="Expectation\Status.cs" />
     <Compile Include="Transformation\IUnaryTransformer.cs" />
     <Compile Include="Transformation\JoinTransformer.cs" />
     <Compile Include="Expectation\MandatoryExpectationEvaluator.cs" />

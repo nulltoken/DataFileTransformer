@@ -9,30 +9,30 @@ namespace DataFileTransformer.Tests.Expectation
     public class RestrictedValuesExpectationEvaluatorFixture
     {
         [Test]
-        [Row(new[] {"Hole", "in", "one"}, "golf", false)]
-        [Row(new[] {"Hole", "in", "one"}, "In", false)]
-        [Row(new[] {"Hole", "in", "one"}, "in", true)]
-        [Row(new[] {"Hole", "in", " one"}, "one", false)]
-        [Row(new[] {"Hole", "in", "one"}, "one ", false)]
+        [Row(new[] {"Hole", "in", "one"}, "golf", Status.Failed)]
+        [Row(new[] {"Hole", "in", "one"}, "In", Status.Failed)]
+        [Row(new[] {"Hole", "in", "one"}, "in", Status.Passed)]
+        [Row(new[] {"Hole", "in", " one"}, "one", Status.Failed)]
+        [Row(new[] {"Hole", "in", "one"}, "one ", Status.Failed)]
         public void IsFullFilledCorrectlyDealsWithNonNullsValuesInCaseSensitiveComparisonContext(
-            string[] restrictedValues, string input, bool expectedResult)
+            string[] restrictedValues, string input, Status expectedResult)
         {
             RestrictedValuesExpectationEvaluator restrictedValuesExpectationEvaluator = CreateSUT(restrictedValues, true);
-            Assert.AreEqual(expectedResult, restrictedValuesExpectationEvaluator.IsFulfilled(input));
+            Assert.AreEqual(expectedResult, restrictedValuesExpectationEvaluator.Evaluate(input).Status);
         }
 
         [Test]
-        [Row(new[] {"Hole", "in", "one"}, "golf", false)]
-        [Row(new[] {"Hole", "in", "one"}, "In", true)]
-        [Row(new[] {"Hole", "in", "one"}, "in", true)]
-        [Row(new[] {"Hole", "in", " one"}, "one", false)]
-        [Row(new[] {"Hole", "in", "one"}, "one ", false)]
+        [Row(new[] {"Hole", "in", "one"}, "golf", Status.Failed)]
+        [Row(new[] {"Hole", "in", "one"}, "In", Status.Passed)]
+        [Row(new[] {"Hole", "in", "one"}, "in", Status.Passed)]
+        [Row(new[] {"Hole", "in", " one"}, "one", Status.Failed)]
+        [Row(new[] {"Hole", "in", "one"}, "one ", Status.Failed)]
         public void IsFullFilledCorrectlyDealsWithNonNullsValuesInCaseInsensitiveComparisonContext(
-            string[] restrictedValues, string input, bool expectedResult)
+            string[] restrictedValues, string input, Status expectedResult)
         {
             RestrictedValuesExpectationEvaluator restrictedValuesExpectationEvaluator = CreateSUT(restrictedValues,
                                                                                                   false);
-            Assert.AreEqual(expectedResult, restrictedValuesExpectationEvaluator.IsFulfilled(input));
+            Assert.AreEqual(expectedResult, restrictedValuesExpectationEvaluator.Evaluate(input).Status);
         }
 
         [Test]
@@ -40,7 +40,7 @@ namespace DataFileTransformer.Tests.Expectation
         {
             RestrictedValuesExpectationEvaluator restrictedValuesExpectationEvaluator =
                 CreateSUT(new[] {"Hole", "in", "one"}, true);
-            Assert.Throws<ArgumentNullException>(() => restrictedValuesExpectationEvaluator.IsFulfilled(null));
+            Assert.Throws<ArgumentNullException>(() => restrictedValuesExpectationEvaluator.Evaluate(null));
         }
 
         [Test]

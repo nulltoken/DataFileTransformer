@@ -19,14 +19,19 @@ namespace DataFileTransformer.Expectation
             _pattern = new Regex(pattern, RegexOptions.Compiled);
         }
 
-        public bool IsFulfilled(string input)
+        public EvaluationResult Evaluate(string input)
         {
             if (input == null)
             {
                 throw new ArgumentNullException("input");
             }
 
-            return _pattern.IsMatch(input);
+            if (!_pattern.IsMatch(input))
+            {
+                return new EvaluationResult(Status.Failed);
+            }
+
+            return new EvaluationResult(Status.Passed);
         }
 
         #endregion

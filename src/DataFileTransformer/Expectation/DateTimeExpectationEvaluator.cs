@@ -18,7 +18,7 @@ namespace DataFileTransformer.Expectation
 
         #region Implementation of IExpectationEvaluator
 
-        public bool IsFulfilled(string input)
+        public EvaluationResult Evaluate(string input)
         {
             if (input == null)
             {
@@ -26,8 +26,13 @@ namespace DataFileTransformer.Expectation
             }
 
             DateTime parsedDateTime;
-            return DateTime.TryParseExact(input, _dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None,
-                                          out parsedDateTime);
+            if (!DateTime.TryParseExact(input, _dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None,
+                                        out parsedDateTime))
+            {
+                return new EvaluationResult(Status.Failed);
+            }
+
+            return new EvaluationResult(Status.Passed);
         }
 
         #endregion

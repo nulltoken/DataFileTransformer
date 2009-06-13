@@ -8,22 +8,22 @@ namespace DataFileTransformer.Tests.Expectation
     public class DateTimeExpectationEvaluatorFixture
     {
         [Test]
-        [Row("31/12/2009", "dd/MM/yyyy", true)]
-        [Row("1/2/2009", "d/M/yyyy", true)]
-        [Row("01/02/2009", "d/M/yyyy", true)]
-        [Row("31/12/09", "dd/MM/yy", true)]
+        [Row("31/12/2009", "dd/MM/yyyy", Status.Passed)]
+        [Row("1/2/2009", "d/M/yyyy", Status.Passed)]
+        [Row("01/02/2009", "d/M/yyyy", Status.Passed)]
+        [Row("31/12/09", "dd/MM/yy", Status.Passed)]
         public void IsFullFilledCorrectlyDealsWithNonNullsValues(string input, string dateTimeFormat,
-                                                                 bool expectedResult)
+                                                                 Status expectedResult)
         {
             DateTimeExpectationEvaluator dateTimeExpectationEvaluator = CreateSUT(dateTimeFormat);
-            Assert.AreEqual(expectedResult, dateTimeExpectationEvaluator.IsFulfilled(input));
+            Assert.AreEqual(expectedResult, dateTimeExpectationEvaluator.Evaluate(input).Status);
         }
 
         [Test]
         public void IsFullFilledThrowsWhenNullValueIsPassed()
         {
             DateTimeExpectationEvaluator mandatoryExpectationEvaluator = CreateSUT("duMMy");
-            Assert.Throws<ArgumentNullException>(() => mandatoryExpectationEvaluator.IsFulfilled(null));
+            Assert.Throws<ArgumentNullException>(() => mandatoryExpectationEvaluator.Evaluate(null));
         }
 
         [Test]
