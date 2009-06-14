@@ -41,7 +41,7 @@
     <Compile Include="Expectation\DateTimeExpectationEvaluatorFixture.cs" />
     <Compile Include="Expectation\MandatoryExpectationEvaluatorFixture.cs" />
     <Compile Include="Expectation\RestrictedValuesExpectationEvaluatorFixture.cs" />
-    <Compile Include="Expectation\PlaceHolderFixture.cs" />
+    <Compile Include="Expectation\PlaceholderFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transformation\CopyTransformerFixture.cs" />
     <Compile Include="Transformation\TrimTransformerFixture.cs" />

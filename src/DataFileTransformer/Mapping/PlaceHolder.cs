@@ -1,8 +1,9 @@
 using System;
+using System.Globalization;
 
 namespace DataFileTransformer.Mapping
 {
-    public class PlaceHolder
+    public class Placeholder
     {
         private readonly object _locker = new object();
         private string _content;
@@ -20,8 +21,8 @@ namespace DataFileTransformer.Mapping
             {
                 if (!_isFilled)
                 {
-                    throw new InvalidOperationException(
-                        string.Format("Nothing can be retrieved from this {0} instance. It is currently empty.",
+                    throw new InvalidPlaceholderStateException(
+                        string.Format(CultureInfo.InvariantCulture, "Nothing can be retrieved from this {0} instance. It is currently empty.",
                                       GetType().Name));
                 }
                 return _content;
@@ -34,8 +35,8 @@ namespace DataFileTransformer.Mapping
             {
                 if (_isFilled)
                 {
-                    throw new InvalidOperationException(
-                        string.Format("This {0} instance can not be filled with '{1}'. It already contains '{2}'.",
+                    throw new InvalidPlaceholderStateException(
+                        string.Format(CultureInfo.InvariantCulture , "This {0} instance can not be filled with '{1}'. It already contains '{2}'.",
                                       GetType().Name, input, _content));
                 }
 

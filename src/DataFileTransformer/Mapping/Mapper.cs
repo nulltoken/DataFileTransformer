@@ -5,11 +5,11 @@ namespace DataFileTransformer.Mapping
 {
     public class Mapper : IMapper
     {
-        private readonly PlaceHolder _source;
-        private readonly PlaceHolder _target;
+        private readonly Placeholder _source;
+        private readonly Placeholder _target;
         private readonly IUnaryTransformer _transformer;
 
-        public Mapper(IUnaryTransformer transformer, PlaceHolder source, PlaceHolder target)
+        public Mapper(IUnaryTransformer transformer, Placeholder source, Placeholder target)
         {
             if (transformer == null)
             {
@@ -23,6 +23,7 @@ namespace DataFileTransformer.Mapping
             {
                 throw new ArgumentNullException("target");
             }
+
             _transformer = transformer;
             _source = source;
             _target = target;
@@ -32,9 +33,42 @@ namespace DataFileTransformer.Mapping
 
         public void Map()
         {
-            _target.FillWith(_transformer.Transform(_source.RetrieveContent()));
+            string data = ExtractDataFrom(_source);
+            string transformedData = PerformTransformation(data);
+            StoreInto(_target, transformedData);
+        }
+
+        private string PerformTransformation(string data)
+        {
+            return _transformer.Transform(data);
         }
 
         #endregion
+
+        private void StoreInto(Placeholder placeholder, string data)
+        {
+            try
+            {
+                placeholder.FillWith(data);
+            }
+            catch (InvalidPlaceholderStateException e)
+            {
+                throw new InvalidOperationException(
+                    string.Format("Can not apply '{0}' transformation.", _transformer.GetType().FullName), e);
+            }
+        }
+
+        private string ExtractDataFrom(Placeholder placeholder)
+        {
+            try
+            {
+                return placeholder.RetrieveContent();
+            }
+            catch (InvalidPlaceholderStateException e)
+            {
+                throw new InvalidOperationException(
+                    string.Format("Can not apply '{0}' transformation.", _transformer.GetType().FullName), e);
+            }
+        }
     }
 }

@@ -4,51 +4,51 @@ using MbUnit.Framework;
 
 namespace DataFileTransformer.Tests.Expectation
 {
-    public class PlaceHolderFixture
+    public class PlaceholderFixture
     {
         [Test]
         public void IsFilledReturnsFalseWhenPlaceHolderIsNotFilled()
         {
-            PlaceHolder placeHolder = CreateSUT();
-            Assert.IsFalse(placeHolder.IsFilled);
+            Placeholder placeholder = CreateSUT();
+            Assert.IsFalse(placeholder.IsFilled);
         }
 
         [Test]
         public void IsFilledReturnsTrueWhenPlaceHolderIsFilled()
         {
-            PlaceHolder placeHolder = CreateSUT();
-            placeHolder.FillWith("dummy");
-            Assert.IsTrue(placeHolder.IsFilled);
+            Placeholder placeholder = CreateSUT();
+            placeholder.FillWith("dummy");
+            Assert.IsTrue(placeholder.IsFilled);
         }
 
         [Test]
         public void RetrieveContentReturnsWhatThePlaceHolderHasBeenFilledWith()
         {
-            PlaceHolder placeHolder = CreateSUT();
+            Placeholder placeholder = CreateSUT();
             string randomData = Guid.NewGuid().ToString();
-            placeHolder.FillWith(randomData);
-            Assert.AreEqual(randomData, placeHolder.RetrieveContent());
+            placeholder.FillWith(randomData);
+            Assert.AreEqual(randomData, placeholder.RetrieveContent());
         }
 
         [Test]
         public void RetrieveContentThrowsWhenPlaceHolderIsNotFilled()
         {
-            PlaceHolder placeHolder = CreateSUT();
-            Assert.Throws<InvalidOperationException>(() => placeHolder.RetrieveContent());
+            Placeholder placeholder = CreateSUT();
+            Assert.Throws<InvalidPlaceholderStateException>(() => placeholder.RetrieveContent());
         }
 
         [Test]
         public void FillWithThrowsWhenPlaceHolderIsAlreadyFilled()
         {
-            PlaceHolder placeHolder = CreateSUT();
-            placeHolder.FillWith("dummy");
+            Placeholder placeholder = CreateSUT();
+            placeholder.FillWith("dummy");
 
-            Assert.Throws<InvalidOperationException>(() => placeHolder.FillWith("more dummy"));
+            Assert.Throws<InvalidPlaceholderStateException>(() => placeholder.FillWith("more dummy"));
         }
 
-        private PlaceHolder CreateSUT()
+        private Placeholder CreateSUT()
         {
-            return new PlaceHolder();
+            return new Placeholder();
         }
     }
 }
