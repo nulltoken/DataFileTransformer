@@ -12,6 +12,9 @@ namespace DataFileTransformer.Tests.Expectation
         [Row("1/2/2009", "d/M/yyyy", Status.Passed)]
         [Row("01/02/2009", "d/M/yyyy", Status.Passed)]
         [Row("31/12/09", "dd/MM/yy", Status.Passed)]
+        [Row("duMMY", "dd/MM/yy", Status.Failed)]
+        [Row("34/12/09", "dd/MM/yy", Status.Failed)]
+        [Row("29/02/09", "dd/MM/yy", Status.Failed)]
         public void IsFullFilledCorrectlyDealsWithNonNullsValues(string input, string dateTimeFormat,
                                                                  Status expectedResult)
         {

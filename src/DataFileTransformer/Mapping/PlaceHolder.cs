@@ -20,7 +20,9 @@ namespace DataFileTransformer.Mapping
             {
                 if (!_isFilled)
                 {
-                    throw new InvalidOperationException("Content has not been initialized yet.");
+                    throw new InvalidOperationException(
+                        string.Format("Nothing can be retrieved from this {0} instance. It is currently empty.",
+                                      GetType().Name));
                 }
                 return _content;
             }
@@ -32,8 +34,11 @@ namespace DataFileTransformer.Mapping
             {
                 if (_isFilled)
                 {
-                    throw new InvalidOperationException("Content has already been initialized.");
+                    throw new InvalidOperationException(
+                        string.Format("This {0} instance can not be filled with '{1}'. It already contains '{2}'.",
+                                      GetType().Name, input, _content));
                 }
+
                 _content = input;
                 _isFilled = true;
             }
