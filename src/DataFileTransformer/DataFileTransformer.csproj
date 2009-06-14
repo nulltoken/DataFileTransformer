@@ -42,9 +42,11 @@
     <Compile Include="Expectation\PatternExpectationEvaluator.cs" />
     <Compile Include="Expectation\RestrictedValuesExpectationEvaluator.cs" />
     <Compile Include="Expectation\Status.cs" />
+    <Compile Include="Mapping\BinaryTransformationMapper.cs" />
     <Compile Include="Mapping\IMapper.cs" />
     <Compile Include="Mapping\InvalidPlaceHolderStateException.cs" />
-    <Compile Include="Mapping\Mapper.cs" />
+    <Compile Include="Mapping\MapperBase.cs" />
+    <Compile Include="Mapping\UnaryTransformationMapper.cs" />
     <Compile Include="Mapping\Placeholder.cs" />
     <Compile Include="Transformation\CopyTransformer.cs" />
     <Compile Include="Transformation\IUnaryTransformer.cs" />
