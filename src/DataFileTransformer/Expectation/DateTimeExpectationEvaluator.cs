@@ -25,14 +25,19 @@ namespace DataFileTransformer.Expectation
                 throw new ArgumentNullException("input");
             }
 
-            DateTime parsedDateTime;
-            if (!DateTime.TryParseExact(input, _dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None,
-                                        out parsedDateTime))
+            if (!IsValidDate(input, _dateFormat))
             {
                 return new EvaluationResult(Status.Failed);
             }
 
             return new EvaluationResult(Status.Passed);
+        }
+
+        private static bool IsValidDate(string input, string dateFormat)
+        {
+            DateTime parsedDateTime;
+            return DateTime.TryParseExact(input, dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None,
+                                          out parsedDateTime);
         }
 
         #endregion

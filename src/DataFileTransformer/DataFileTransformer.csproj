@@ -42,6 +42,10 @@
     <Compile Include="Expectation\PatternExpectationEvaluator.cs" />
     <Compile Include="Expectation\RestrictedValuesExpectationEvaluator.cs" />
     <Compile Include="Expectation\Status.cs" />
+    <Compile Include="Mapping\IMapper.cs" />
+    <Compile Include="Mapping\Mapper.cs" />
+    <Compile Include="Mapping\PlaceHolder.cs" />
+    <Compile Include="Transformation\CopyTransformer.cs" />
     <Compile Include="Transformation\IUnaryTransformer.cs" />
     <Compile Include="Transformation\JoinTransformer.cs" />
     <Compile Include="Expectation\MandatoryExpectationEvaluator.cs" />
