@@ -1,4 +1,4 @@
-namespace DataFileTransformer.Expectation
+namespace DataFileTransformer
 {
     public class EvaluationResult
     {

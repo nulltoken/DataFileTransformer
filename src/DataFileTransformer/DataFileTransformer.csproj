@@ -36,22 +36,23 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Expectation\DateTimeExpectationEvaluator.cs" />
-    <Compile Include="Expectation\EvaluationResult.cs" />
-    <Compile Include="Expectation\IExpectationEvaluator.cs" />
-    <Compile Include="Expectation\PatternExpectationEvaluator.cs" />
-    <Compile Include="Expectation\RestrictedValuesExpectationEvaluator.cs" />
-    <Compile Include="Expectation\Status.cs" />
+    <Compile Include="Expectation\DateTimeExpectation.cs" />
+    <Compile Include="EvaluationResult.cs" />
+    <Compile Include="Expectation\IExpectationAccessor.cs" />
+    <Compile Include="IExpectationEvaluator.cs" />
+    <Compile Include="Expectation\PatternExpectation.cs" />
+    <Compile Include="Expectation\RestrictedValuesExpectation.cs" />
+    <Compile Include="Status.cs" />
     <Compile Include="Mapping\BinaryTransformationMapper.cs" />
     <Compile Include="Mapping\IMapper.cs" />
     <Compile Include="Mapping\InvalidPlaceHolderStateException.cs" />
     <Compile Include="Mapping\MapperBase.cs" />
     <Compile Include="Mapping\UnaryTransformationMapper.cs" />
-    <Compile Include="Mapping\Placeholder.cs" />
+    <Compile Include="Placeholder.cs" />
     <Compile Include="Transformation\CopyTransformer.cs" />
     <Compile Include="Transformation\IUnaryTransformer.cs" />
     <Compile Include="Transformation\JoinTransformer.cs" />
-    <Compile Include="Expectation\MandatoryExpectationEvaluator.cs" />
+    <Compile Include="Expectation\MandatoryExpectation.cs" />
     <Compile Include="Transformation\IBinaryTransformer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transformation\TrimTransformer.cs" />

@@ -9,38 +9,39 @@ namespace DataFileTransformer.Tests.Expectation
     public class RestrictedValuesExpectationEvaluatorFixture
     {
         [Test]
-        [Row(new[] {"Hole", "in", "one"}, "golf", Status.Failed)]
-        [Row(new[] {"Hole", "in", "one"}, "In", Status.Failed)]
-        [Row(new[] {"Hole", "in", "one"}, "in", Status.Passed)]
-        [Row(new[] {"Hole", "in", " one"}, "one", Status.Failed)]
-        [Row(new[] {"Hole", "in", "one"}, "one ", Status.Failed)]
+        [Row(new[] {"Hole", "in", "one"}, "golf", false)]
+        [Row(new[] {"Hole", "in", "one"}, "In", false)]
+        [Row(new[] {"Hole", "in", "one"}, "in", true)]
+        [Row(new[] {"Hole", "in", " one"}, "one", false)]
+        [Row(new[] {"Hole", "in", "one"}, "one ", false)]
         public void IsFullFilledCorrectlyDealsWithNonNullsValuesInCaseSensitiveComparisonContext(
-            string[] restrictedValues, string input, Status expectedResult)
+            string[] restrictedValues, string input, bool expectedResult)
         {
-            RestrictedValuesExpectationEvaluator restrictedValuesExpectationEvaluator = CreateSUT(restrictedValues, true);
-            Assert.AreEqual(expectedResult, restrictedValuesExpectationEvaluator.Evaluate(input).Status);
+            IExpectationAccessor restrictedValuesExpectation = CreateSUT(restrictedValues, true);
+            Assert.AreEqual(expectedResult, restrictedValuesExpectation.Expectation(input));
         }
 
         [Test]
-        [Row(new[] {"Hole", "in", "one"}, "golf", Status.Failed)]
-        [Row(new[] {"Hole", "in", "one"}, "In", Status.Passed)]
-        [Row(new[] {"Hole", "in", "one"}, "in", Status.Passed)]
-        [Row(new[] {"Hole", "in", " one"}, "one", Status.Failed)]
-        [Row(new[] {"Hole", "in", "one"}, "one ", Status.Failed)]
+        [Row(new[] {"Hole", "in", "one"}, "golf", false)]
+        [Row(new[] {"Hole", "in", "one"}, "In", true)]
+        [Row(new[] {"Hole", "in", "one"}, "in", true)]
+        [Row(new[] {"Hole", "in", " one"}, "one", false)]
+        [Row(new[] {"Hole", "in", "one"}, "one ", false)]
         public void IsFullFilledCorrectlyDealsWithNonNullsValuesInCaseInsensitiveComparisonContext(
-            string[] restrictedValues, string input, Status expectedResult)
+            string[] restrictedValues, string input, bool expectedResult)
         {
-            RestrictedValuesExpectationEvaluator restrictedValuesExpectationEvaluator = CreateSUT(restrictedValues,
+            IExpectationAccessor restrictedValuesExpectation = CreateSUT(restrictedValues,
                                                                                                   false);
-            Assert.AreEqual(expectedResult, restrictedValuesExpectationEvaluator.Evaluate(input).Status);
+            Assert.AreEqual(expectedResult, restrictedValuesExpectation.Expectation(input));
         }
 
         [Test]
+        [Explicit]
         public void IsFullFilledThrowsWhenNullValueIsPassed()
         {
-            RestrictedValuesExpectationEvaluator restrictedValuesExpectationEvaluator =
+            IExpectationAccessor restrictedValuesExpectation =
                 CreateSUT(new[] {"Hole", "in", "one"}, true);
-            Assert.Throws<ArgumentNullException>(() => restrictedValuesExpectationEvaluator.Evaluate(null));
+            Assert.Throws<ArgumentNullException>(() => restrictedValuesExpectation.Expectation(null));
         }
 
         [Test]
@@ -49,10 +50,10 @@ namespace DataFileTransformer.Tests.Expectation
             Assert.Throws<ArgumentNullException>(() => CreateSUT(null, true));
         }
 
-        private static RestrictedValuesExpectationEvaluator CreateSUT(IEnumerable<string> restrictedValues,
+        private static IExpectationAccessor CreateSUT(IEnumerable<string> restrictedValues,
                                                                       bool isCaseSentive)
         {
-            return new RestrictedValuesExpectationEvaluator(restrictedValues, isCaseSentive);
+            return new RestrictedValuesExpectation(restrictedValues, isCaseSentive);
         }
     }
 }

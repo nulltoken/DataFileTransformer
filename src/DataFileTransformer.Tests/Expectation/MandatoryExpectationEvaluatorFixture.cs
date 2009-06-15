@@ -8,26 +8,27 @@ namespace DataFileTransformer.Tests.Expectation
     public class MandatoryExpectationEvaluatorFixture
     {
         [Test]
-        [Row("", Status.Failed)]
-        [Row(" ", Status.Passed)]
-        [Row("duMMy", Status.Passed)]
-        [Row("3.5", Status.Passed)]
-        public void IsFullFilledCorrectlyDealsWithNonNullsValues(string input, Status expectedResult)
+        [Row("", false)]
+        [Row(" ", true)]
+        [Row("duMMy", true)]
+        [Row("3.5", true)]
+        public void IsFullFilledCorrectlyDealsWithNonNullsValues(string input, bool expectedResult)
         {
-            MandatoryExpectationEvaluator mandatoryExpectationEvaluator = CreateSUT();
-            Assert.AreEqual(expectedResult, mandatoryExpectationEvaluator.Evaluate(input).Status);
+            IExpectationAccessor mandatoryExpectation = CreateSUT();
+            Assert.AreEqual(expectedResult, mandatoryExpectation.Expectation(input));
         }
 
         [Test]
+        [Explicit]
         public void IsFullFilledThrowsWhenNullValueIsPassed()
         {
-            MandatoryExpectationEvaluator mandatoryExpectationEvaluator = CreateSUT();
-            Assert.Throws<ArgumentNullException>(() => mandatoryExpectationEvaluator.Evaluate(null));
+            IExpectationAccessor mandatoryExpectation = CreateSUT();
+            Assert.Throws<ArgumentNullException>(() => mandatoryExpectation.Expectation(null));
         }
 
-        private static MandatoryExpectationEvaluator CreateSUT()
+        private static IExpectationAccessor CreateSUT()
         {
-            return new MandatoryExpectationEvaluator();
+            return new MandatoryExpectation();
         }
     }
 }

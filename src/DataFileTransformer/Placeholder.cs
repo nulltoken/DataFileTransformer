@@ -1,6 +1,7 @@
 using System.Globalization;
+using DataFileTransformer.Mapping;
 
-namespace DataFileTransformer.Mapping
+namespace DataFileTransformer
 {
     public class Placeholder
     {

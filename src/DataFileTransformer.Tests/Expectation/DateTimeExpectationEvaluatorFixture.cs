@@ -8,25 +8,26 @@ namespace DataFileTransformer.Tests.Expectation
     public class DateTimeExpectationEvaluatorFixture
     {
         [Test]
-        [Row("31/12/2009", "dd/MM/yyyy", Status.Passed)]
-        [Row("1/2/2009", "d/M/yyyy", Status.Passed)]
-        [Row("01/02/2009", "d/M/yyyy", Status.Passed)]
-        [Row("31/12/09", "dd/MM/yy", Status.Passed)]
-        [Row("duMMY", "dd/MM/yy", Status.Failed)]
-        [Row("34/12/09", "dd/MM/yy", Status.Failed)]
-        [Row("29/02/09", "dd/MM/yy", Status.Failed)]
+        [Row("31/12/2009", "dd/MM/yyyy", true)]
+        [Row("1/2/2009", "d/M/yyyy", true)]
+        [Row("01/02/2009", "d/M/yyyy", true)]
+        [Row("31/12/09", "dd/MM/yy", true)]
+        [Row("duMMY", "dd/MM/yy", false)]
+        [Row("34/12/09", "dd/MM/yy", false)]
+        [Row("29/02/09", "dd/MM/yy", false)]
         public void IsFullFilledCorrectlyDealsWithNonNullsValues(string input, string dateTimeFormat,
-                                                                 Status expectedResult)
+                                                                 bool expectedResult)
         {
-            DateTimeExpectationEvaluator dateTimeExpectationEvaluator = CreateSUT(dateTimeFormat);
-            Assert.AreEqual(expectedResult, dateTimeExpectationEvaluator.Evaluate(input).Status);
+            IExpectationAccessor dateTimeExpectation = CreateSUT(dateTimeFormat);
+            Assert.AreEqual(expectedResult, dateTimeExpectation.Expectation(input));
         }
 
         [Test]
+        [Explicit]
         public void IsFullFilledThrowsWhenNullValueIsPassed()
         {
-            DateTimeExpectationEvaluator mandatoryExpectationEvaluator = CreateSUT("duMMy");
-            Assert.Throws<ArgumentNullException>(() => mandatoryExpectationEvaluator.Evaluate(null));
+            IExpectationAccessor dateTimeExpectation = CreateSUT("duMMy");
+            Assert.Throws<ArgumentNullException>(() => dateTimeExpectation.Expectation(null));
         }
 
         [Test]
@@ -35,9 +36,9 @@ namespace DataFileTransformer.Tests.Expectation
             Assert.Throws<ArgumentNullException>(() => CreateSUT(null));
         }
 
-        private static DateTimeExpectationEvaluator CreateSUT(string dateFormat)
+        private static IExpectationAccessor CreateSUT(string dateFormat)
         {
-            return new DateTimeExpectationEvaluator(dateFormat);
+            return new DateTimeExpectation(dateFormat);
         }
     }
 }
