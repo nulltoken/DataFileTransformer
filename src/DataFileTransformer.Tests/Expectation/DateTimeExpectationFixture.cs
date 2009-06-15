@@ -5,7 +5,7 @@ using MbUnit.Framework;
 namespace DataFileTransformer.Tests.Expectation
 {
     [TestFixture]
-    public class DateTimeExpectationEvaluatorFixture
+    public class DateTimeExpectationFixture
     {
         [Test]
         [Row("31/12/2009", "dd/MM/yyyy", true)]
@@ -15,19 +15,19 @@ namespace DataFileTransformer.Tests.Expectation
         [Row("duMMY", "dd/MM/yy", false)]
         [Row("34/12/09", "dd/MM/yy", false)]
         [Row("29/02/09", "dd/MM/yy", false)]
-        public void IsFullFilledCorrectlyDealsWithNonNullsValues(string input, string dateTimeFormat,
+        public void IsFullFilledByCorrectlyDealsWithNonNullsValues(string input, string dateTimeFormat,
                                                                  bool expectedResult)
         {
-            IExpectationAccessor dateTimeExpectation = CreateSUT(dateTimeFormat);
-            Assert.AreEqual(expectedResult, dateTimeExpectation.Expectation(input));
+            IExpectation dateTimeExpectation = CreateSUT(dateTimeFormat);
+            Assert.AreEqual(expectedResult, dateTimeExpectation.IsFulfilledBy(input));
         }
 
         [Test]
         [Explicit]
-        public void IsFullFilledThrowsWhenNullValueIsPassed()
+        public void IsFullFilledByThrowsWhenNullValueIsPassed()
         {
-            IExpectationAccessor dateTimeExpectation = CreateSUT("duMMy");
-            Assert.Throws<ArgumentNullException>(() => dateTimeExpectation.Expectation(null));
+            IExpectation dateTimeExpectation = CreateSUT("duMMy");
+            Assert.Throws<ArgumentNullException>(() => dateTimeExpectation.IsFulfilledBy(null));
         }
 
         [Test]
@@ -36,7 +36,7 @@ namespace DataFileTransformer.Tests.Expectation
             Assert.Throws<ArgumentNullException>(() => CreateSUT(null));
         }
 
-        private static IExpectationAccessor CreateSUT(string dateFormat)
+        private static IExpectation CreateSUT(string dateFormat)
         {
             return new DateTimeExpectation(dateFormat);
         }

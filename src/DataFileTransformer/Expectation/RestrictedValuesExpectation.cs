@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace DataFileTransformer.Expectation
 {
-    public class RestrictedValuesExpectation : IExpectationAccessor
+    public class RestrictedValuesExpectation : IExpectation
     {
         private readonly IEqualityComparer<string> _comparer;
         private readonly IEnumerable<string> _restrictedValues;
@@ -26,9 +26,9 @@ namespace DataFileTransformer.Expectation
         }
 
 
-        #region Implementation of IExpectationAccessor
+        #region Implementation of IExpectation
 
-        public Func<string, bool> Expectation
+        public Func<string, bool> IsFulfilledBy
         {
             get { return input => _restrictedValues.Contains(input, _comparer); }
         }

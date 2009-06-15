@@ -2,11 +2,11 @@
 
 namespace DataFileTransformer.Expectation
 {
-    public class MandatoryExpectation : IExpectationAccessor
+    public class MandatoryExpectation : IExpectation
     {
-        #region Implementation of IExpectationAccessor
+        #region Implementation of IExpectation
 
-        public Func<string, bool> Expectation
+        public Func<string, bool> IsFulfilledBy
         {
             get { return input => input.Length > 0; }
         }

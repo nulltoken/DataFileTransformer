@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace DataFileTransformer.Expectation
 {
-    public class PatternExpectation : IExpectationAccessor
+    public class PatternExpectation : IExpectation
     {
         private readonly Regex _pattern;
 
@@ -17,9 +17,9 @@ namespace DataFileTransformer.Expectation
             _pattern = new Regex(pattern, RegexOptions.Compiled);
         }
 
-        #region Implementation of IExpectationAccessor
+        #region Implementation of IExpectation
 
-        public Func<string, bool> Expectation
+        public Func<string, bool> IsFulfilledBy
         {
             get { return input => _pattern.IsMatch(input); }
         }

@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace DataFileTransformer.Expectation
 {
-    public class DateTimeExpectation : IExpectationAccessor
+    public class DateTimeExpectation : IExpectation
     {
         private readonly string _dateFormat;
 
@@ -24,9 +24,9 @@ namespace DataFileTransformer.Expectation
                                           out parsedDateTime);
         }
 
-        #region Implementation of IExpectationAccessor
+        #region Implementation of IExpectation
 
-        public Func<string, bool> Expectation
+        public Func<string, bool> IsFulfilledBy
         {
             get { return input => IsValidDate(input, _dateFormat); }
         }

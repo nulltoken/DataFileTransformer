@@ -38,7 +38,7 @@
     </Compile>
     <Compile Include="Expectation\DateTimeExpectation.cs" />
     <Compile Include="EvaluationResult.cs" />
-    <Compile Include="Expectation\IExpectationAccessor.cs" />
+    <Compile Include="Expectation\IExpectation.cs" />
     <Compile Include="IExpectationEvaluator.cs" />
     <Compile Include="Expectation\PatternExpectation.cs" />
     <Compile Include="Expectation\RestrictedValuesExpectation.cs" />

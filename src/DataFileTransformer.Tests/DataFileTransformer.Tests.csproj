@@ -38,9 +38,9 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Expectation\DateTimeExpectationEvaluatorFixture.cs" />
-    <Compile Include="Expectation\MandatoryExpectationEvaluatorFixture.cs" />
-    <Compile Include="Expectation\RestrictedValuesExpectationEvaluatorFixture.cs" />
+    <Compile Include="Expectation\DateTimeExpectationFixture.cs" />
+    <Compile Include="Expectation\MandatoryExpectationFixture.cs" />
+    <Compile Include="Expectation\RestrictedValuesExpectationFixture.cs" />
     <Compile Include="Mapping\PlaceholderFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transformation\CopyTransformerFixture.cs" />

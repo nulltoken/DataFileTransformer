@@ -6,7 +6,7 @@ using MbUnit.Framework;
 namespace DataFileTransformer.Tests.Expectation
 {
     [TestFixture]
-    public class RestrictedValuesExpectationEvaluatorFixture
+    public class RestrictedValuesExpectationFixture
     {
         [Test]
         [Row(new[] {"Hole", "in", "one"}, "golf", false)]
@@ -14,11 +14,11 @@ namespace DataFileTransformer.Tests.Expectation
         [Row(new[] {"Hole", "in", "one"}, "in", true)]
         [Row(new[] {"Hole", "in", " one"}, "one", false)]
         [Row(new[] {"Hole", "in", "one"}, "one ", false)]
-        public void IsFullFilledCorrectlyDealsWithNonNullsValuesInCaseSensitiveComparisonContext(
+        public void IsFullFilledByCorrectlyDealsWithNonNullsValuesInCaseSensitiveComparisonContext(
             string[] restrictedValues, string input, bool expectedResult)
         {
-            IExpectationAccessor restrictedValuesExpectation = CreateSUT(restrictedValues, true);
-            Assert.AreEqual(expectedResult, restrictedValuesExpectation.Expectation(input));
+            IExpectation restrictedValuesExpectation = CreateSUT(restrictedValues, true);
+            Assert.AreEqual(expectedResult, restrictedValuesExpectation.IsFulfilledBy(input));
         }
 
         [Test]
@@ -27,21 +27,21 @@ namespace DataFileTransformer.Tests.Expectation
         [Row(new[] {"Hole", "in", "one"}, "in", true)]
         [Row(new[] {"Hole", "in", " one"}, "one", false)]
         [Row(new[] {"Hole", "in", "one"}, "one ", false)]
-        public void IsFullFilledCorrectlyDealsWithNonNullsValuesInCaseInsensitiveComparisonContext(
+        public void IsFullFilledByCorrectlyDealsWithNonNullsValuesInCaseInsensitiveComparisonContext(
             string[] restrictedValues, string input, bool expectedResult)
         {
-            IExpectationAccessor restrictedValuesExpectation = CreateSUT(restrictedValues,
+            IExpectation restrictedValuesExpectation = CreateSUT(restrictedValues,
                                                                                                   false);
-            Assert.AreEqual(expectedResult, restrictedValuesExpectation.Expectation(input));
+            Assert.AreEqual(expectedResult, restrictedValuesExpectation.IsFulfilledBy(input));
         }
 
         [Test]
         [Explicit]
-        public void IsFullFilledThrowsWhenNullValueIsPassed()
+        public void IsFullFilledByThrowsWhenNullValueIsPassed()
         {
-            IExpectationAccessor restrictedValuesExpectation =
+            IExpectation restrictedValuesExpectation =
                 CreateSUT(new[] {"Hole", "in", "one"}, true);
-            Assert.Throws<ArgumentNullException>(() => restrictedValuesExpectation.Expectation(null));
+            Assert.Throws<ArgumentNullException>(() => restrictedValuesExpectation.IsFulfilledBy(null));
         }
 
         [Test]
@@ -50,7 +50,7 @@ namespace DataFileTransformer.Tests.Expectation
             Assert.Throws<ArgumentNullException>(() => CreateSUT(null, true));
         }
 
-        private static IExpectationAccessor CreateSUT(IEnumerable<string> restrictedValues,
+        private static IExpectation CreateSUT(IEnumerable<string> restrictedValues,
                                                                       bool isCaseSentive)
         {
             return new RestrictedValuesExpectation(restrictedValues, isCaseSentive);
