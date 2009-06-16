@@ -36,7 +36,6 @@ namespace DataFileTransformer.Tests.Expectation
         }
 
         [Test]
-        [Explicit]
         public void IsFullFilledByThrowsWhenNullValueIsPassed()
         {
             IExpectation restrictedValuesExpectation =

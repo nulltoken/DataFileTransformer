@@ -17,7 +17,7 @@ namespace DataFileTransformer.Expectation
             _dateFormat = dateFormat;
         }
 
-        private static bool IsValidDate(string input, string dateFormat)
+        private static bool IsDateValid(string input, string dateFormat)
         {
             DateTime parsedDateTime;
             return DateTime.TryParseExact(input, dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None,
@@ -26,9 +26,14 @@ namespace DataFileTransformer.Expectation
 
         #region Implementation of IExpectation
 
-        public Func<string, bool> IsFulfilledBy
+        bool IExpectation.IsFulfilledBy(string input)
         {
-            get { return input => IsValidDate(input, _dateFormat); }
+            if (input == null)
+            {
+                throw new ArgumentNullException("input");
+            }
+
+            return IsDateValid(input, _dateFormat);
         }
 
         #endregion

@@ -25,12 +25,16 @@ namespace DataFileTransformer.Expectation
             return isCaseSensitive ? StringComparer.Ordinal : StringComparer.OrdinalIgnoreCase;
         }
 
-
         #region Implementation of IExpectation
 
-        public Func<string, bool> IsFulfilledBy
+        bool IExpectation.IsFulfilledBy(string input)
         {
-            get { return input => _restrictedValues.Contains(input, _comparer); }
+            if (input == null)
+            {
+                throw new ArgumentNullException("input");
+            }
+
+            return _restrictedValues.Contains(input, _comparer);
         }
 
         #endregion

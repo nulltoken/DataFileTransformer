@@ -19,9 +19,14 @@ namespace DataFileTransformer.Expectation
 
         #region Implementation of IExpectation
 
-        public Func<string, bool> IsFulfilledBy
+        bool IExpectation.IsFulfilledBy(string input)
         {
-            get { return input => _pattern.IsMatch(input); }
+            if (input == null)
+            {
+                throw new ArgumentNullException("input");
+            }
+
+            return _pattern.IsMatch(input);
         }
 
         #endregion

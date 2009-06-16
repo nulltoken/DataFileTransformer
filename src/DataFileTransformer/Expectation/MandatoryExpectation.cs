@@ -6,9 +6,14 @@ namespace DataFileTransformer.Expectation
     {
         #region Implementation of IExpectation
 
-        public Func<string, bool> IsFulfilledBy
+        bool IExpectation.IsFulfilledBy(string input)
         {
-            get { return input => input.Length > 0; }
+            if (input == null)
+            {
+                throw new ArgumentNullException("input");
+            }
+
+            return input.Length > 0;
         }
 
         #endregion

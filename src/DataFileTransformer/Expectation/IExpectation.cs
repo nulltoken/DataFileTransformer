@@ -4,6 +4,6 @@ namespace DataFileTransformer.Expectation
 {
     public interface IExpectation
     {
-        Func<string, bool> IsFulfilledBy { get; }
+        bool IsFulfilledBy(string input);
     }
 }
