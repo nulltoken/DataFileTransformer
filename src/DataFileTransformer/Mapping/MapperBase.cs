@@ -5,14 +5,14 @@ namespace DataFileTransformer.Mapping
 {
     public abstract class MapperBase<TTransformer> : IMapper
     {
-        private readonly TTransformer _transformer;
         private readonly Placeholder _source;
         private readonly Placeholder _target;
+        private readonly TTransformer _transformer;
 
 
         protected MapperBase(TTransformer transformer, Placeholder source, Placeholder target)
         {
-            if (Equals(transformer,default(TTransformer)))
+            if (Equals(transformer, default(TTransformer)))
             {
                 throw new ArgumentNullException("transformer");
             }
@@ -47,41 +47,49 @@ namespace DataFileTransformer.Mapping
 
         #region Implementation of IMapper
 
-        public abstract void Map();
+        public void Map()
+        {
+            string data = ExtractDataFrom(Source);
+            string transformedData = PerformTransformation(data);
+            StoreInto(Target, transformedData);
+        }
 
         #endregion
 
+        protected abstract string PerformTransformation(string data);
+
+
         protected void StoreInto(Placeholder placeholder, string data)
         {
-            try
-            {
-                placeholder.FillWith(data);
-            }
-            catch (InvalidPlaceholderStateException e)
-            {
-                throw new InvalidOperationException(
-                    BuildExceptionMessage(), e);
-            }
+            Perform(() => placeholder.FillWith(data));
         }
 
         protected string ExtractDataFrom(Placeholder placeholder)
         {
+            string content = null;
+            Perform(() => content = placeholder.RetrieveContent());
+
+            return content;
+        }
+
+        private void Perform(Action codeBlock)
+        {
             try
             {
-                return placeholder.RetrieveContent();
+                codeBlock();
             }
             catch (InvalidPlaceholderStateException e)
             {
-                throw new InvalidOperationException(
-                    BuildExceptionMessage(), e);
+                throw BuildException(e);
             }
         }
 
-
-        private string BuildExceptionMessage()
+        private Exception BuildException(Exception exception)
         {
-            return string.Format(CultureInfo.InvariantCulture, "Can not apply '{0}' transformation.",
-                                 _transformer.GetType().FullName);
+            return
+                new InvalidOperationException(
+                    string.Format(CultureInfo.InvariantCulture, "Can not apply '{0}' transformation.",
+                                  _transformer.GetType().FullName), exception);
         }
     }
 }

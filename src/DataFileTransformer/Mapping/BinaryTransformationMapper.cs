@@ -6,7 +6,6 @@ namespace DataFileTransformer.Mapping
     public class BinaryTransformationMapper : MapperBase<IBinaryTransformer>
     {
         private readonly Placeholder _additionalSource;
-        private readonly IBinaryTransformer _transformer;
 
         public BinaryTransformationMapper(IBinaryTransformer transformer, Placeholder source,
                                           Placeholder additionalSource, Placeholder target)
@@ -17,21 +16,13 @@ namespace DataFileTransformer.Mapping
                 throw new ArgumentNullException("additionalSource");
             }
 
-            _transformer = transformer;
             _additionalSource = additionalSource;
         }
 
-        public override void Map()
+        protected override string PerformTransformation(string data)
         {
-            string data = ExtractDataFrom(Source);
             string additionalData = ExtractDataFrom(_additionalSource);
-            string transformedData = PerformTransformation(data, additionalData);
-            StoreInto(Target, transformedData);
-        }
-
-        private string PerformTransformation(string data, string additionalData)
-        {
-            return _transformer.Transform(data, additionalData);
+            return Transformer.Transform(data, additionalData);
         }
     }
 }
