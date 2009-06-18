@@ -3,14 +3,19 @@ using System.Globalization;
 
 namespace DataFileTransformer.Mapping
 {
-    public abstract class MapperBase : IMapper
+    public abstract class MapperBase<TTransformer> : IMapper
     {
+        private readonly TTransformer _transformer;
         private readonly Placeholder _source;
         private readonly Placeholder _target;
 
 
-        protected MapperBase(Placeholder source, Placeholder target)
+        protected MapperBase(TTransformer transformer, Placeholder source, Placeholder target)
         {
+            if (Equals(transformer,default(TTransformer)))
+            {
+                throw new ArgumentNullException("transformer");
+            }
             if (source == null)
             {
                 throw new ArgumentNullException("source");
@@ -20,11 +25,15 @@ namespace DataFileTransformer.Mapping
                 throw new ArgumentNullException("target");
             }
 
+            _transformer = transformer;
             _source = source;
             _target = target;
         }
 
-        protected abstract object Transformer { get; }
+        protected TTransformer Transformer
+        {
+            get { return _transformer; }
+        }
 
         protected Placeholder Target
         {
@@ -51,7 +60,7 @@ namespace DataFileTransformer.Mapping
             catch (InvalidPlaceholderStateException e)
             {
                 throw new InvalidOperationException(
-                    BuildExceptionMessage(Transformer), e);
+                    BuildExceptionMessage(), e);
             }
         }
 
@@ -64,14 +73,15 @@ namespace DataFileTransformer.Mapping
             catch (InvalidPlaceholderStateException e)
             {
                 throw new InvalidOperationException(
-                    BuildExceptionMessage(Transformer), e);
+                    BuildExceptionMessage(), e);
             }
         }
 
 
-        private static string BuildExceptionMessage(object transformer)
+        private string BuildExceptionMessage()
         {
-            return string.Format(CultureInfo.InvariantCulture, "Can not apply '{0}' transformation.", transformer.GetType().FullName);
+            return string.Format(CultureInfo.InvariantCulture, "Can not apply '{0}' transformation.",
+                                 _transformer.GetType().FullName);
         }
     }
 }

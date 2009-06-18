@@ -3,19 +3,15 @@ using DataFileTransformer.Transformation;
 
 namespace DataFileTransformer.Mapping
 {
-    public class BinaryTransformationMapper : MapperBase
+    public class BinaryTransformationMapper : MapperBase<IBinaryTransformer>
     {
         private readonly Placeholder _additionalSource;
         private readonly IBinaryTransformer _transformer;
 
         public BinaryTransformationMapper(IBinaryTransformer transformer, Placeholder source,
                                           Placeholder additionalSource, Placeholder target)
-            : base(source, target)
+            : base(transformer, source, target)
         {
-            if (transformer == null)
-            {
-                throw new ArgumentNullException("transformer");
-            }
             if (additionalSource == null)
             {
                 throw new ArgumentNullException("additionalSource");
@@ -23,11 +19,6 @@ namespace DataFileTransformer.Mapping
 
             _transformer = transformer;
             _additionalSource = additionalSource;
-        }
-
-        protected override object Transformer
-        {
-            get { return _transformer; }
         }
 
         public override void Map()

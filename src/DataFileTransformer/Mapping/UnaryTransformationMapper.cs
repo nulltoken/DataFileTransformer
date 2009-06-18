@@ -3,24 +3,13 @@ using DataFileTransformer.Transformation;
 
 namespace DataFileTransformer.Mapping
 {
-    public class UnaryTransformationMapper : MapperBase
+    public class UnaryTransformationMapper : MapperBase<IUnaryTransformer>
     {
         private readonly IUnaryTransformer _transformer;
 
         public UnaryTransformationMapper(IUnaryTransformer transformer, Placeholder source, Placeholder target)
-            : base(source, target)
+            : base(transformer, source, target)
         {
-            if (transformer == null)
-            {
-                throw new ArgumentNullException("transformer");
-            }
-
-            _transformer = transformer;
-        }
-
-        protected override object Transformer
-        {
-            get { return _transformer; }
         }
 
         public override void Map()

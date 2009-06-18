@@ -31,7 +31,7 @@ namespace DataFileTransformer.Tests.Expectation
             string[] restrictedValues, string input, bool expectedResult)
         {
             IExpectation restrictedValuesExpectation = CreateSUT(restrictedValues,
-                                                                                                  false);
+                                                                 false);
             Assert.AreEqual(expectedResult, restrictedValuesExpectation.IsFulfilledBy(input));
         }
 
@@ -50,7 +50,7 @@ namespace DataFileTransformer.Tests.Expectation
         }
 
         private static IExpectation CreateSUT(IEnumerable<string> restrictedValues,
-                                                                      bool isCaseSentive)
+                                              bool isCaseSentive)
         {
             return new RestrictedValuesExpectation(restrictedValues, isCaseSentive);
         }

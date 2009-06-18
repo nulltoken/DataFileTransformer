@@ -19,7 +19,7 @@ namespace DataFileTransformer.Expectation
 
         #region Implementation of IExpectation
 
-        bool IExpectation.IsFulfilledBy(string input)
+        public bool IsFulfilledBy(string input)
         {
             if (input == null)
             {

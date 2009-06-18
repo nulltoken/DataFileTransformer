@@ -1,5 +1,3 @@
-using System;
-
 namespace DataFileTransformer.Expectation
 {
     public interface IExpectation

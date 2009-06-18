@@ -16,7 +16,7 @@ namespace DataFileTransformer.Tests.Expectation
         [Row("34/12/09", "dd/MM/yy", false)]
         [Row("29/02/09", "dd/MM/yy", false)]
         public void IsFullFilledByCorrectlyDealsWithNonNullsValues(string input, string dateTimeFormat,
-                                                                 bool expectedResult)
+                                                                   bool expectedResult)
         {
             IExpectation dateTimeExpectation = CreateSUT(dateTimeFormat);
             Assert.AreEqual(expectedResult, dateTimeExpectation.IsFulfilledBy(input));

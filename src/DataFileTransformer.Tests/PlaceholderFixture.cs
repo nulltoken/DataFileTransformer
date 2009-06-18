@@ -2,7 +2,7 @@ using System;
 using DataFileTransformer.Mapping;
 using MbUnit.Framework;
 
-namespace DataFileTransformer.Tests.Expectation
+namespace DataFileTransformer.Tests
 {
     public class PlaceholderFixture
     {
