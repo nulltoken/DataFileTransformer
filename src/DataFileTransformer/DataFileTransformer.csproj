@@ -36,14 +36,15 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="FileFormatDefinition\DelimitedFileFormatDefinition.cs" />
+    <Compile Include="Parsing\AdditionalColumnsProcessing.cs" />
+    <Compile Include="Parsing\DelimitedColumnExploder.cs" />
     <Compile Include="Expectation\DateTimeExpectation.cs" />
     <Compile Include="Expectation\IExpectation.cs" />
-    <Compile Include="FileFormatDefinition\FileFormatDefinitionBase.cs" />
-    <Compile Include="FileFormatDefinition\IDelimitedFileFormatDefinition.cs" />
     <Compile Include="Expectation\PatternExpectation.cs" />
     <Compile Include="Expectation\RestrictedValuesExpectation.cs" />
-    <Compile Include="FileFormatDefinition\IFileFormatDefinition.cs" />
+    <Compile Include="Parsing\IColumnExploder.cs" />
+    <Compile Include="Parsing\IRowParser.cs" />
+    <Compile Include="Parsing\RowParser.cs" />
     <Compile Include="Mapping\BinaryTransformationMapper.cs" />
     <Compile Include="Mapping\IMapper.cs" />
     <Compile Include="Mapping\InvalidPlaceHolderStateException.cs" />
