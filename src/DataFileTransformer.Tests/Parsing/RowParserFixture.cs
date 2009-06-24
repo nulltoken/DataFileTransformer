@@ -54,9 +54,15 @@ namespace DataFileTransformer.Tests.Parsing
         [Test]
         public void ParseThrowsWhenNullParametersIsPassed()
         {
-            IRowParser rowParser = CreateSUT(5, AdditionalColumnsProcessing.Skip, new DelimitedColumnExploder((char) 9));
+            IRowParser rowParser = CreateSUT(5, AdditionalColumnsProcessing.Skip, new DelimitedColumnExploder((char)9));
 
             Assert.Throws<ArgumentNullException>(() => rowParser.Parse(null));
+        }
+
+        [Test]
+        public void ConstructorThrowsWhenNullIColumnExploderIsPassed()
+        {
+            Assert.Throws<ArgumentNullException>(() => CreateSUT(5, AdditionalColumnsProcessing.Skip, null));
         }
 
         private static IRowParser CreateSUT(int numberOfColumns, AdditionalColumnsProcessing additionalColumnsProcessing,
