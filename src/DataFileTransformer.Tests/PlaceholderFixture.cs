@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using DataFileTransformer.Mapping;
 using MbUnit.Framework;
 

@@ -1,4 +1,4 @@
-namespace DataFileTransformer.Expectation
+﻿namespace DataFileTransformer.Expectation
 {
     public interface IExpectation
     {
