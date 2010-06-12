@@ -1,18 +1,17 @@
-using System;
-using System.Collections.Generic;
+﻿using System;
+using DataFileTransformer.Transformation;
 
 namespace DataFileTransformer.Parsing
 {
     public class RowParser : IRowParser
     {
         private readonly AdditionalColumnsProcessing _additionalColumnsProcessing;
-        private readonly IColumnExploder _columnExploder;
-        private readonly List<string> _emptyColumns;
+        private readonly ITransformer _columnExploder;
         private readonly int _numberOfColumns;
 
 
         public RowParser(int numberOfColumns, AdditionalColumnsProcessing additionalColumnsProcessing,
-                         IColumnExploder columnExploder)
+                         ITransformer columnExploder)
         {
             if (columnExploder == null)
             {
@@ -22,19 +21,19 @@ namespace DataFileTransformer.Parsing
             _numberOfColumns = numberOfColumns;
             _additionalColumnsProcessing = additionalColumnsProcessing;
             _columnExploder = columnExploder;
-            _emptyColumns = BuildEmptryColumnsList(_numberOfColumns);
         }
 
         #region IRowParser Members
 
-        public IEnumerable<string> Parse(string row)
+        public ChunkContainer Parse(string row)
         {
             if (row == null)
             {
                 throw new ArgumentNullException("row");
             }
 
-            ICollection<string> columns = _columnExploder.Explode(row);
+            ChunkContainer columns = _columnExploder.Transform(new ChunkContainer(new[] {row}));
+
             int count = columns.Count;
 
             if (count == _numberOfColumns)
@@ -52,25 +51,18 @@ namespace DataFileTransformer.Parsing
 
         #endregion
 
-        private IEnumerable<string> HandleLessColumnsThanExpected(ICollection<string> columns)
+        private ChunkContainer HandleLessColumnsThanExpected(ChunkContainer columns)
         {
-            var u = new List<string>(columns);
-            u.AddRange(_emptyColumns.GetRange(0, _numberOfColumns - columns.Count));
-            return u;
-        }
-
-        private static List<string> BuildEmptryColumnsList(int numberOfColumns)
-        {
-            var list = new List<string>(numberOfColumns);
-            for (int i = 0; i < numberOfColumns; i++)
+            var emptyColumns = (string[]) Array.CreateInstance(typeof (string), _numberOfColumns - columns.Count);
+            for (int i = 0; i < emptyColumns.Length; i++)
             {
-                list.Add(string.Empty);
+                emptyColumns[i] = string.Empty;
             }
 
-            return list;
+            return columns.Add(emptyColumns);
         }
 
-        private IEnumerable<string> HandleMoreColumnsThanExpected(ICollection<string> columns)
+        private ChunkContainer HandleMoreColumnsThanExpected(ChunkContainer columns)
         {
             if (_additionalColumnsProcessing == AdditionalColumnsProcessing.Merge)
             {
@@ -80,20 +72,20 @@ namespace DataFileTransformer.Parsing
             return SkipAdditionalTrailingColumns(columns);
         }
 
-        private IEnumerable<string> MergeAdditionalTrailingColumns(ICollection<string> collection)
+        private ChunkContainer MergeAdditionalTrailingColumns(ChunkContainer collection)
         {
-            List<string> t = new List<string>(collection).GetRange(0, _numberOfColumns - 1);
-            List<string> u = new List<string>(collection).GetRange(_numberOfColumns - 1,
-                                                                   collection.Count -
-                                                                   _numberOfColumns + 1);
-            string v = string.Join(string.Empty, u.ToArray());
-            t.Add(v);
-            return t;
+            ChunkContainer toKeepSplitted = collection.GetRange(0, _numberOfColumns - 1);
+            ChunkContainer toMerge = collection.GetRange(_numberOfColumns - 1, collection.Count - _numberOfColumns + 1);
+
+            string mergedColumns = string.Join(string.Empty, toMerge.ToArray());
+
+            ChunkContainer result = toKeepSplitted.Add(mergedColumns);
+            return result;
         }
 
-        private IEnumerable<string> SkipAdditionalTrailingColumns(IEnumerable<string> collection)
+        private ChunkContainer SkipAdditionalTrailingColumns(ChunkContainer collection)
         {
-            return new List<string>(collection).GetRange(0, _numberOfColumns);
+            return collection.GetRange(0, _numberOfColumns);
         }
     }
 }

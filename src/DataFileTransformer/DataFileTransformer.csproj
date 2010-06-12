@@ -37,25 +37,21 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Parsing\AdditionalColumnsProcessing.cs" />
-    <Compile Include="Parsing\DelimitedColumnExploder.cs" />
+    <Compile Include="Transformation\CompositeTransformerBuilder.cs" />
+    <Compile Include="Transformation\SplitTransformer.cs" />
     <Compile Include="Expectation\DateTimeExpectation.cs" />
     <Compile Include="Expectation\IExpectation.cs" />
     <Compile Include="Expectation\PatternExpectation.cs" />
     <Compile Include="Expectation\RestrictedValuesExpectation.cs" />
-    <Compile Include="Parsing\IColumnExploder.cs" />
     <Compile Include="Parsing\IRowParser.cs" />
     <Compile Include="Parsing\RowParser.cs" />
-    <Compile Include="Mapping\BinaryTransformationMapper.cs" />
-    <Compile Include="Mapping\IMapper.cs" />
-    <Compile Include="Mapping\InvalidPlaceHolderStateException.cs" />
-    <Compile Include="Mapping\MapperBase.cs" />
-    <Compile Include="Mapping\UnaryTransformationMapper.cs" />
+    <Compile Include="InvalidPlaceHolderStateException.cs" />
     <Compile Include="Placeholder.cs" />
+    <Compile Include="ChunkContainer.cs" />
     <Compile Include="Transformation\CopyTransformer.cs" />
-    <Compile Include="Transformation\IUnaryTransformer.cs" />
+    <Compile Include="Transformation\ITransformer.cs" />
     <Compile Include="Transformation\JoinTransformer.cs" />
     <Compile Include="Expectation\MandatoryExpectation.cs" />
-    <Compile Include="Transformation\IBinaryTransformer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transformation\TrimTransformer.cs" />
   </ItemGroup>
@@ -64,6 +60,8 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

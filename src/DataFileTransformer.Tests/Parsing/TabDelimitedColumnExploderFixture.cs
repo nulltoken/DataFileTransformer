@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using DataFileTransformer.Parsing;
+using DataFileTransformer.Transformation;
 using MbUnit.Framework;
 
 namespace DataFileTransformer.Tests.Parsing
@@ -9,7 +9,7 @@ namespace DataFileTransformer.Tests.Parsing
     public class TabDelimitedColumnExploderFixture
     {
         private const char TAB = ((char) 9);
-        private readonly IColumnExploder _columnExploder = CreateSUT(TAB);
+        private readonly ITransformer _columnExploder = CreateSUT(TAB);
 
         [Test]
         [Row("a\tb", new[] {"a", "b"})]
@@ -20,18 +20,18 @@ namespace DataFileTransformer.Tests.Parsing
         [Row("a\tb\tc\t", new[] {"a", "b", "c", ""})]
         public void ExplodeShouldReturnExpectedListOfPieces(string input, ICollection<string> expectedOutput)
         {
-            Assert.AreEqual(expectedOutput, _columnExploder.Explode(input));
+            Assert.AreEqual(expectedOutput, _columnExploder.Transform(new ChunkContainer(new[] {input})).ToArray());
         }
 
         [Test]
         public void ExplodeThrowsWhenNullParametersIsPassed()
         {
-            Assert.Throws<ArgumentNullException>(() => _columnExploder.Explode(null));
+            Assert.Throws<ArgumentNullException>(() => _columnExploder.Transform(null));
         }
 
-        private static IColumnExploder CreateSUT(char delimiter)
+        private static ITransformer CreateSUT(char delimiter)
         {
-            return new DelimitedColumnExploder(delimiter);
+            return new SplitTransformer(delimiter);
         }
     }
 }

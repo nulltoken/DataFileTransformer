@@ -8,16 +8,16 @@ namespace DataFileTransformer.Tests.Transformation
     public class CopyTransformerFixture
     {
         [Test]
-        [Row("", "")]
-        [Row(" ", " ")]
-        [Row("duMMy", "duMMy")]
-        [Row(" duMMy", " duMMy")]
-        [Row(" duMMy ", " duMMy ")]
-        [Row("duMMy ", "duMMy ")]
-        public void TransformCorrectlyDealsWithNonNullsValues(string input, string expectedResult)
+        [Row(new[] {""}, new[] {""})]
+        [Row(new[] {" "}, new[] {" "})]
+        [Row(new[] {"duMMy"}, new[] {"duMMy"})]
+        [Row(new[] {" duMMy"}, new[] {" duMMy"})]
+        [Row(new[] {" duMMy "}, new[] {" duMMy "})]
+        [Row(new[] {"duMMy "}, new[] {"duMMy "})]
+        public void TransformCorrectlyDealsWithNonNullsValues(string[] input, string[] expectedResult)
         {
             CopyTransformer trimTransformer = CreateSUT();
-            Assert.AreEqual(expectedResult, trimTransformer.Transform(input));
+            Assert.AreEqual(expectedResult, trimTransformer.Transform(new ChunkContainer(input)).ToArray());
         }
 
         [Test]

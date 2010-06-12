@@ -1,4 +1,4 @@
-namespace DataFileTransformer.Parsing
+﻿namespace DataFileTransformer.Parsing
 {
     public enum AdditionalColumnsProcessing
     {

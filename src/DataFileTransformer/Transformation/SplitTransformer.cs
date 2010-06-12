@@ -3,8 +3,15 @@ using System.Collections.Generic;
 
 namespace DataFileTransformer.Transformation
 {
-    public class TrimTransformer : ITransformer
+    public class SplitTransformer : ITransformer
     {
+        private readonly char _separator;
+
+        public SplitTransformer(char separator)
+        {
+            _separator = separator;
+        }
+
         #region Implementation of ITransformer
 
         public ChunkContainer Transform(ChunkContainer source)
@@ -14,14 +21,14 @@ namespace DataFileTransformer.Transformation
                 throw new ArgumentNullException("source");
             }
 
-            var chunks = new List<string>();
+            var splitted = new List<string>();
 
             foreach (string data in source.ToArray())
             {
-                chunks.Add(data.Trim());
+                splitted.AddRange(data.Split(_separator));
             }
 
-            return new ChunkContainer(chunks);
+            return new ChunkContainer(splitted);
         }
 
         #endregion

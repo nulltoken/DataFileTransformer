@@ -1,24 +1,27 @@
-using System;
+﻿using System;
 
 namespace DataFileTransformer.Transformation
 {
-    public class JoinTransformer : IBinaryTransformer
+    public class JoinTransformer : ITransformer
     {
-        #region Implementation of IBinaryTransformer
+        private readonly string _separator;
 
-        public string Transform(string input, string otherInput)
+
+        public JoinTransformer(string separator)
         {
-            if (input == null)
+            _separator = separator;
+        }
+
+        #region Implementation of ITransformer
+
+        public ChunkContainer Transform(ChunkContainer source)
+        {
+            if (source == null)
             {
-                throw new ArgumentNullException("input");
+                throw new ArgumentNullException("source");
             }
 
-            if (otherInput == null)
-            {
-                throw new ArgumentNullException("otherInput");
-            }
-
-            return string.Concat(input, otherInput);
+            return new ChunkContainer(new[] {string.Join(_separator, source.ToArray())});
         }
 
         #endregion

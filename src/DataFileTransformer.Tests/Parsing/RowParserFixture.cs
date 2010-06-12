@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using DataFileTransformer.Parsing;
+using DataFileTransformer.Transformation;
 using MbUnit.Framework;
 
 namespace DataFileTransformer.Tests.Parsing
@@ -25,11 +24,11 @@ namespace DataFileTransformer.Tests.Parsing
                                                            int expectedNumberOfColumns)
         {
             IRowParser rowParser = CreateSUT(expectedNumberOfColumns, additionalColumnsProcessing,
-                                             new DelimitedColumnExploder(TAB));
+                                             new SplitTransformer(TAB));
 
-            IEnumerable<string> columns = rowParser.Parse(input);
+            ChunkContainer columns = rowParser.Parse(input);
 
-            Assert.AreEqual(expectedNumberOfColumns, columns.Count());
+            Assert.AreEqual(expectedNumberOfColumns, columns.Count);
         }
 
         [Test]
@@ -46,15 +45,15 @@ namespace DataFileTransformer.Tests.Parsing
                                                                       string expectedLastColumn)
         {
             IRowParser rowParser = CreateSUT(expectedNumberOfColumns, additionalColumnsProcessing,
-                                             new DelimitedColumnExploder(TAB));
-            string[] columns = rowParser.Parse(input).ToArray();
+                                             new SplitTransformer(TAB));
+            ChunkContainer columns = rowParser.Parse(input);
             Assert.AreEqual(expectedLastColumn, columns[expectedNumberOfColumns - 1]);
         }
 
         [Test]
         public void ParseThrowsWhenNullParametersIsPassed()
         {
-            IRowParser rowParser = CreateSUT(5, AdditionalColumnsProcessing.Skip, new DelimitedColumnExploder((char)9));
+            IRowParser rowParser = CreateSUT(5, AdditionalColumnsProcessing.Skip, new SplitTransformer(TAB));
 
             Assert.Throws<ArgumentNullException>(() => rowParser.Parse(null));
         }
@@ -66,7 +65,7 @@ namespace DataFileTransformer.Tests.Parsing
         }
 
         private static IRowParser CreateSUT(int numberOfColumns, AdditionalColumnsProcessing additionalColumnsProcessing,
-                                            IColumnExploder columnExploder)
+                                            ITransformer columnExploder)
         {
             return new RowParser(numberOfColumns, additionalColumnsProcessing, columnExploder);
         }

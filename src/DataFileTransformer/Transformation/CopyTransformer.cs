@@ -1,19 +1,19 @@
-using System;
+﻿using System;
 
 namespace DataFileTransformer.Transformation
 {
-    public class CopyTransformer : IUnaryTransformer
+    public class CopyTransformer : ITransformer
     {
-        #region Implementation of IUnaryTransformer
+        #region Implementation of ITransformer
 
-        public string Transform(string input)
+        public ChunkContainer Transform(ChunkContainer source)
         {
-            if (input == null)
+            if (source == null)
             {
-                throw new ArgumentNullException("input");
+                throw new ArgumentNullException("source");
             }
 
-            return input;
+            return source;
         }
 
         #endregion
