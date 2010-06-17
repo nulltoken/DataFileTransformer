@@ -1,5 +1,4 @@
 ﻿using System;
-using DataFileTransformer.Mapping;
 using MbUnit.Framework;
 
 namespace DataFileTransformer.Tests
@@ -46,7 +45,7 @@ namespace DataFileTransformer.Tests
             Assert.Throws<InvalidPlaceholderStateException>(() => placeholder.FillWith("more dummy"));
         }
 
-        private Placeholder CreateSUT()
+        private static Placeholder CreateSUT()
         {
             return new Placeholder();
         }

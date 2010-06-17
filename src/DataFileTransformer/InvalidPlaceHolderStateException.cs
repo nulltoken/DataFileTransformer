@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace DataFileTransformer.Mapping
+namespace DataFileTransformer
 {
     [Serializable]
     public class InvalidPlaceholderStateException : Exception
