@@ -40,6 +40,7 @@
     </Compile>
     <Compile Include="Expectation\CombiningExpectationResultFixture.cs" />
     <Compile Include="Expectation\InvalidExpectationResultFixture.cs" />
+    <Compile Include="Expectation\PatternExpectationFixture.cs" />
     <Compile Include="Expectation\ValidExpectationResultFixture.cs" />
     <Compile Include="IntegrationScenarioFixture.cs" />
     <Compile Include="Parsing\RowParserFixture.cs" />
