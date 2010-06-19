@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DataFileTransformer.Transformation
 {
-    public class SplitTransformer : ITransformer
+    public class SplitTransformer : TransformerBase
     {
         private readonly char _separator;
 
@@ -12,15 +12,13 @@ namespace DataFileTransformer.Transformation
             _separator = separator;
         }
 
-        #region Implementation of ITransformer
-
-        public ChunkContainer Transform(ChunkContainer source)
+        protected override Func<ChunkContainer, ChunkContainer> Transformer
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
+            get { return Splitter; }
+        }
 
+        private ChunkContainer Splitter(ChunkContainer source)
+        {
             var splitted = new List<string>();
 
             foreach (string data in source.ToArray())
@@ -30,7 +28,5 @@ namespace DataFileTransformer.Transformation
 
             return new ChunkContainer(splitted);
         }
-
-        #endregion
     }
 }

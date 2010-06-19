@@ -2,28 +2,18 @@
 
 namespace DataFileTransformer.Transformation
 {
-    public class JoinTransformer : ITransformer
+    public class JoinTransformer : TransformerBase
     {
         private readonly string _separator;
-
 
         public JoinTransformer(string separator)
         {
             _separator = separator;
         }
 
-        #region Implementation of ITransformer
-
-        public ChunkContainer Transform(ChunkContainer source)
+        protected override Func<ChunkContainer, ChunkContainer> Transformer
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
-
-            return new ChunkContainer(new[] {string.Join(_separator, source.ToArray())});
+            get { return input => new ChunkContainer(new[] {string.Join(_separator, input.ToArray())}); }
         }
-
-        #endregion
     }
 }

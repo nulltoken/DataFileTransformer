@@ -58,6 +58,7 @@
     <Compile Include="Transformation\JoinTransformer.cs" />
     <Compile Include="Expectation\MandatoryExpectation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transformation\TransformerBase.cs" />
     <Compile Include="Transformation\TrimTransformer.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -3,17 +3,15 @@ using System.Collections.Generic;
 
 namespace DataFileTransformer.Transformation
 {
-    public class TrimTransformer : ITransformer
+    public class TrimTransformer : TransformerBase
     {
-        #region Implementation of ITransformer
-
-        public ChunkContainer Transform(ChunkContainer source)
+        protected override Func<ChunkContainer, ChunkContainer> Transformer
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
+            get { return Trimmer; }
+        }
 
+        private static ChunkContainer Trimmer(ChunkContainer source)
+        {
             var chunks = new List<string>();
 
             foreach (string data in source.ToArray())
@@ -23,7 +21,5 @@ namespace DataFileTransformer.Transformation
 
             return new ChunkContainer(chunks);
         }
-
-        #endregion
     }
 }

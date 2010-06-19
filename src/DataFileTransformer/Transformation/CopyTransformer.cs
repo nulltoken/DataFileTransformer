@@ -2,20 +2,11 @@
 
 namespace DataFileTransformer.Transformation
 {
-    public class CopyTransformer : ITransformer
+    public class CopyTransformer : TransformerBase
     {
-        #region Implementation of ITransformer
-
-        public ChunkContainer Transform(ChunkContainer source)
+        protected override Func<ChunkContainer, ChunkContainer> Transformer
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException("source");
-            }
-
-            return source;
+            get { return input => input; }
         }
-
-        #endregion
     }
 }
