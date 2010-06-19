@@ -19,14 +19,14 @@ namespace DataFileTransformer.Tests.Expectation
                                                                    bool expectedResult)
         {
             IExpectation dateTimeExpectation = CreateSUT(dateTimeFormat);
-            Assert.AreEqual(expectedResult, dateTimeExpectation.IsFulfilledBy(input));
+            Assert.AreEqual(expectedResult, dateTimeExpectation.VerifyFulfillmentOf(input).HasExpectationBeenFulfilled);
         }
 
         [Test]
         public void IsFullFilledByThrowsWhenNullValueIsPassed()
         {
             IExpectation dateTimeExpectation = CreateSUT("duMMy");
-            Assert.Throws<ArgumentNullException>(() => dateTimeExpectation.IsFulfilledBy(null));
+            Assert.Throws<ArgumentNullException>(() => dateTimeExpectation.VerifyFulfillmentOf(null));
         }
 
         [Test]

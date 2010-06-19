@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace DataFileTransformer.Expectation
 {
-    public class PatternExpectation : IExpectation
+    public class PatternExpectation : ExpectationBase
     {
         private readonly Regex _pattern;
 
@@ -17,18 +18,19 @@ namespace DataFileTransformer.Expectation
             _pattern = new Regex(pattern, RegexOptions.Compiled);
         }
 
-        #region Implementation of IExpectation
-
-        public bool IsFulfilledBy(string input)
+        protected override string ErrorMessageFormat
         {
-            if (input == null)
-            {
-                throw new ArgumentNullException("input");
-            }
-
-            return _pattern.IsMatch(input);
+            get { return "Input data '{0}' does not match pattern '{1}'."; }
         }
 
-        #endregion
+        protected override Func<string, bool> ExpectationVerifier
+        {
+            get { return input => _pattern.IsMatch(input); }
+        }
+
+        protected override IEnumerable<string> ErrorMessageAdditionalParameters
+        {
+            get { yield return _pattern.ToString(); }
+        }
     }
 }

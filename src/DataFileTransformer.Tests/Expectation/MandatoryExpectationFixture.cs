@@ -12,17 +12,18 @@ namespace DataFileTransformer.Tests.Expectation
         [Row(" ", true)]
         [Row("duMMy", true)]
         [Row("3.5", true)]
-        public void IsFullFilledByCorrectlyDealsWithNonNullsValues(string input, bool expectedResult)
+        public void IsFullFilledByCorrectlyDealsWithNonNullsValues(string input,
+                                                                   bool expectedResult)
         {
             IExpectation mandatoryExpectation = CreateSUT();
-            Assert.AreEqual(expectedResult, mandatoryExpectation.IsFulfilledBy(input));
+            Assert.AreEqual(expectedResult, mandatoryExpectation.VerifyFulfillmentOf(input).HasExpectationBeenFulfilled);
         }
 
         [Test]
         public void IsFullFilledByThrowsWhenNullValueIsPassed()
         {
             IExpectation mandatoryExpectation = CreateSUT();
-            Assert.Throws<ArgumentNullException>(() => mandatoryExpectation.IsFulfilledBy(null));
+            Assert.Throws<ArgumentNullException>(() => mandatoryExpectation.VerifyFulfillmentOf(null));
         }
 
         private static IExpectation CreateSUT()

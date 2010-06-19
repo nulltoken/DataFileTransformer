@@ -1,21 +1,23 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 namespace DataFileTransformer.Expectation
 {
-    public class MandatoryExpectation : IExpectation
+    public class MandatoryExpectation : PatternExpectation
     {
-        #region Implementation of IExpectation
+        private static string pattern = ".+";
 
-        public bool IsFulfilledBy(string input)
+        public MandatoryExpectation() : base(pattern)
         {
-            if (input == null)
-            {
-                throw new ArgumentNullException("input");
-            }
-
-            return input.Length > 0;
         }
 
-        #endregion
+        protected override string ErrorMessageFormat
+        {
+            get { return "Input data is empty."; }
+        }
+
+        protected override IEnumerable<string> ErrorMessageAdditionalParameters
+        {
+            get { yield break; }
+        }
     }
 }

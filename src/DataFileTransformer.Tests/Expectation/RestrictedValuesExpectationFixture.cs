@@ -18,7 +18,7 @@ namespace DataFileTransformer.Tests.Expectation
             string[] restrictedValues, string input, bool expectedResult)
         {
             IExpectation restrictedValuesExpectation = CreateSUT(restrictedValues, true);
-            Assert.AreEqual(expectedResult, restrictedValuesExpectation.IsFulfilledBy(input));
+            Assert.AreEqual(expectedResult, restrictedValuesExpectation.VerifyFulfillmentOf(input).HasExpectationBeenFulfilled);
         }
 
         [Test]
@@ -32,7 +32,7 @@ namespace DataFileTransformer.Tests.Expectation
         {
             IExpectation restrictedValuesExpectation = CreateSUT(restrictedValues,
                                                                  false);
-            Assert.AreEqual(expectedResult, restrictedValuesExpectation.IsFulfilledBy(input));
+            Assert.AreEqual(expectedResult, restrictedValuesExpectation.VerifyFulfillmentOf(input).HasExpectationBeenFulfilled);
         }
 
         [Test]
@@ -40,7 +40,7 @@ namespace DataFileTransformer.Tests.Expectation
         {
             IExpectation restrictedValuesExpectation =
                 CreateSUT(new[] {"Hole", "in", "one"}, true);
-            Assert.Throws<ArgumentNullException>(() => restrictedValuesExpectation.IsFulfilledBy(null));
+            Assert.Throws<ArgumentNullException>(() => restrictedValuesExpectation.VerifyFulfillmentOf(null));
         }
 
         [Test]

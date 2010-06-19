@@ -36,6 +36,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Expectation\ExpectationBase.cs" />
     <Compile Include="Expectation\ExpectationResult.cs" />
     <Compile Include="Parsing\AdditionalColumnsProcessing.cs" />
     <Compile Include="Transformation\CompositeTransformerBuilder.cs" />

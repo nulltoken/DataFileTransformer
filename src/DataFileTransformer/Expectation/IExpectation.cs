@@ -2,6 +2,6 @@
 {
     public interface IExpectation
     {
-        bool IsFulfilledBy(string input);
+        ExpectationResult VerifyFulfillmentOf(string input);
     }
 }
