@@ -15,7 +15,7 @@ namespace DataFileTransformer.Tests
             var splitter = new SplitTransformer(',');
             var trimmer = new TrimTransformer();
             ITransformer compositeTransformer =
-                new CompositeTransformerBuilder(splitter)
+                new CompositeTransformer(splitter)
                     .ComposeWith(trimmer)
                     .Build();
 

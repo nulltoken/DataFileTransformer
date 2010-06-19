@@ -42,7 +42,7 @@
     <Compile Include="Expectation\ExpectationResult.cs" />
     <Compile Include="IComposable.cs" />
     <Compile Include="Parsing\AdditionalColumnsProcessing.cs" />
-    <Compile Include="Transformation\CompositeTransformerBuilder.cs" />
+    <Compile Include="Transformation\CompositeTransformer.cs" />
     <Compile Include="Transformation\SplitTransformer.cs" />
     <Compile Include="Expectation\DateTimeExpectation.cs" />
     <Compile Include="Expectation\IExpectation.cs" />
